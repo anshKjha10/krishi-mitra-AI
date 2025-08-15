@@ -2,27 +2,11 @@ import streamlit as st
 import pandas as pd
 import os
 from langchain_groq import ChatGroq
-from langchain.chains import create_history_aware_retriever, create_retrieval_chain
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
-from langchain_core.chat_history import BaseChatMessageHistory
-# from langchain_community.vectorstores import FAISS
-from langchain.chains.combine_documents import create_stuff_documents_chain
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_core.runnables.history import RunnableWithMessageHistory
-from langchain_core.documents import Document
 import requests
 import pickle
-
-
-# What I changed
-
-# Stored prediction in st.session_state.predicted_yield (previously only in yield_pred).
-# Replaced selected_crop with crop in the prompt.
-# Wrapped the LLM call with try/except and store the response in session state and history.
-# Kept the final advisor display tied to st.session_state.llm_explanation.
-
+import joblib
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -44,10 +28,9 @@ if "predicted_yield" not in st.session_state:
 if "llm_explanation" not in st.session_state:
     st.session_state.llm_explanation = None
     
-with open('D:\\My Projects\\Agriculture Yield Advisor\\crop_yield.pkl', 'rb') as f:
-    pipeline = pickle.load(f)
+pipeline = joblib.load("crop_yield.joblib")
     
-df = pd.read_csv('D:\\My Projects\\Agriculture Yield Advisor\\new_df.csv')
+df = pd.read_csv('new_df.csv')
 crop_list = sorted(df['Crop'].dropna().unique())
 state_list = sorted(df['State'].dropna().unique())
 season_list = sorted(df['Season'].dropna().unique())
@@ -109,4 +92,5 @@ if st.button("Go") and user_input:
     )
     answer = llm.invoke(chat_history_text).content
     st.session_state.history.add_ai_message(answer)
+
     st.write(answer)
