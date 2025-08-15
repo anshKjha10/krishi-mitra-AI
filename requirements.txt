@@ -2,11 +2,10 @@ langchain
 python-dotenv
 langchain_community
 langchain_core
-streamlit
-langchain-groq
 langchain-huggingface
+streamlit
+langchain_groq
 scikit-learn
-matplotlib
-numpy==2.0.2
+numpy
 pandas
 seaborn
