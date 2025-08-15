@@ -6,8 +6,9 @@ langchain_core
 langchain-huggingface
 streamlit
 langchain_groq
-scikit-learn
+scikit-learn==1.6.1
 numpy
 pandas
 seaborn
+
 
