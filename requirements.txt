@@ -19,9 +19,10 @@ pypdf
 faiss-cpu
 pymupdf
 amadeus
-scikit-learn
+scikit-learn==1.6.1
 matplotlib
-numpy
-pandas
-joblib
+numpy==1.26.4
+pandas==2.3.1
+joblib==1.5.1
 seaborn
+
