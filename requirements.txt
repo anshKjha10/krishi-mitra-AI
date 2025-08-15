@@ -1,4 +1,4 @@
-python==3.11.13
+
 langchain
 python-dotenv
 langchain_community
@@ -10,5 +10,6 @@ scikit-learn==1.6.1
 numpy
 pandas
 seaborn
+
 
 
